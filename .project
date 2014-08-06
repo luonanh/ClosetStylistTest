@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ClosetStylistTest</name>
+	<name>ClosetStylishGUITest</name>
 	<comment></comment>
 	<projects>
-		<project>ClosetStylist</project>
+		<project>NotesList</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
