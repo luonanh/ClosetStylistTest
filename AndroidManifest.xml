@@ -8,5 +8,5 @@
     <uses-library android:name="android.test.runner" />
     </application>
     <uses-sdk android:minSdkVersion="10" />
-    <instrumentation android:targetPackage="com.example.closetstylishgui" android:name="android.test.InstrumentationTestRunner" />
+    <instrumentation android:targetPackage="com.adl.closetstylist" android:name="android.test.InstrumentationTestRunner" />
 </manifest> 

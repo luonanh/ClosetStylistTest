@@ -13,9 +13,9 @@
 package com.robotium.test;
 
 import com.robotium.solo.Solo;
-import com.example.closetstylishgui.LoginActivity;
-import com.example.closetstylishgui.RegisterActivity;
-import com.example.closetstylishgui.SplashScreen;
+import com.adl.closetstylist.ui.LoginActivity;
+import com.adl.closetstylist.ui.RegisterActivity;
+import com.adl.closetstylist.ui.SplashScreen;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
