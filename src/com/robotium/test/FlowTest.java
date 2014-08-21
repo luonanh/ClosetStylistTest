@@ -73,7 +73,8 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 		assertTrue("Cannot enter Register Activity", getInRegister);
 		
 		//fill register data
-		solo.clickOnMenuItem(getActivity().getString(R.string.register_menu_load_male));
+		solo.clickOnMenuItem(getActivity().getString(R.string.register_menu_load_male)); // load male UserProfile
+		//solo.clickOnMenuItem(getActivity().getString(R.string.register_menu_load_female)); // load female UserProfile
 		EditText userName = (EditText) solo.getView(R.id.username);
 		assertTrue("Cannot fill male profile", userName.getText() != null || userName.getText().length() > 0);
 		
@@ -92,6 +93,10 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 		//create male closet
 		solo.clickOnMenuItem(getActivity().getString(
 				R.string.my_closet_menu_create_default_closet_male));
+		//create female closet
+//		solo.clickOnMenuItem(getActivity().getString(
+//				R.string.my_closet_menu_create_default_closet_female));
+
 		solo.sleep(2000);
 		
 		//get out and get in back to MyCloset for checking new created items
