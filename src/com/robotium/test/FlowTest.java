@@ -19,7 +19,9 @@ import com.adl.closetstylist.R;
 import com.adl.closetstylist.ui.RegisterActivity;
 import com.adl.closetstylist.ui.SplashScreen;
 
+import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -110,6 +112,24 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 		solo.sleep(1000);
 		assertTrue("Cannot enter " + myOFODStr + " view", solo.searchText(myOFODStr));
 		
+		//click on WEAR an outfit
+		solo.clickOnText(getActivity().getString(R.string.wear));
+		solo.sleep(1000);
+		
+		//check to get in Outfit history
+		String myOutfitHistoryStr = getActivity().getString(R.string.outfit_history);
+		assertTrue("Cannot enter " + myOutfitHistoryStr + " view", solo.searchText(myOutfitHistoryStr));
+		solo.sleep(1000);
+		
+		//click on outfit item
+		listItem = (ListView) solo.getView(R.id.garmentlist);
+		assertTrue("Cannot see new created item in outfit history list", listItem.getAdapter().getCount() > 0);
+		solo.clickOnView(getViewAtIndex(listItem, 0, getInstrumentation()));
+		solo.sleep(1000);
+		
+		//check to get in Outfit Preview
+		String outfitPreviewStr = getActivity().getString(R.string.outfit_preview);
+		assertTrue("Cannot enter " + outfitPreviewStr + " view", solo.searchText(outfitPreviewStr));
 	}
 	
 	public void testLogin() throws Exception {
@@ -125,5 +145,30 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 		boolean getInMainActivity = solo.searchText("Dashboard");
 		assertTrue("Cannot enter Main Activity", getInMainActivity); 
 	}
+	
+	
+	private View getViewAtIndex(final ListView listElement, final int indexInList, Instrumentation instrumentation) {
+	    ListView parent = listElement;
+	    if (parent != null) {
+	        if (indexInList <= parent.getAdapter().getCount()) {
+	            scrollListTo(parent, indexInList, instrumentation);
+	            int indexToUse = indexInList - parent.getFirstVisiblePosition();
+	            return parent.getChildAt(indexToUse);
+	        }
+	    }
+	    return null;
+	}
+
+	private <T extends ListView> void scrollListTo(final T listView,
+	        final int index, Instrumentation instrumentation) {
+	    instrumentation.runOnMainSync(new Runnable() {
+	        @Override
+	        public void run() {
+	            listView.setSelection(index);
+	        }
+	    });
+	    instrumentation.waitForIdleSync();
+	}
+
 	
 }
