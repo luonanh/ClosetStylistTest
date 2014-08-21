@@ -33,6 +33,7 @@ import android.widget.ListView;
  */
 public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 
+	private static final int WAIT_TIME = 2000;
 	private Solo solo;
 
 	public FlowTest() {
@@ -65,7 +66,7 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 		
 		//clear data
 		solo.clickOnText("ClearMyCloset");
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		
 		//get in register view
 		solo.clickOnText("Don't have account - register here");
@@ -80,14 +81,14 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 		
 		//click register
 		solo.clickOnView(solo.getView(R.id.btn_register));
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		solo.assertCurrentActivity("Cannot enter Main Actvity", MainActivity.class);
 		
 		//get in My Closet
 		String myClosetStr = getActivity().getString(R.string.mycloset);
 		
 		solo.clickOnText(myClosetStr);
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		assertTrue("Cannot enter " + myClosetStr + " view", solo.searchText(myClosetStr));
 
 		//create male closet
@@ -97,16 +98,16 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 //		solo.clickOnMenuItem(getActivity().getString(
 //				R.string.my_closet_menu_create_default_closet_female));
 
-		solo.sleep(2000);
+		solo.sleep(WAIT_TIME);
 		
 		//get out and get in back to MyCloset for checking new created items
 		solo.clickOnText(myClosetStr);
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		String dashboardStr = getActivity().getString(R.string.dashboard);
 		solo.clickOnText(dashboardStr);
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		solo.clickOnText(myClosetStr);
-		solo.sleep(2000);
+		solo.sleep(WAIT_TIME);
 		ListView listItem = (ListView) solo.getView(R.id.garmentlist);
 		assertTrue("Cannot see new created item in garment list", listItem.getAdapter().getCount() > 0);
 		
@@ -114,27 +115,34 @@ public class FlowTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 		solo.clickOnText(myClosetStr);
 		String myOFODStr = getActivity().getString(R.string.outfitoftheday);
 		solo.clickOnText(myOFODStr);
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		assertTrue("Cannot enter " + myOFODStr + " view", solo.searchText(myOFODStr));
 		
 		//click on WEAR an outfit
 		solo.clickOnText(getActivity().getString(R.string.wear));
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		
 		//check to get in Outfit history
 		String myOutfitHistoryStr = getActivity().getString(R.string.outfit_history);
 		assertTrue("Cannot enter " + myOutfitHistoryStr + " view", solo.searchText(myOutfitHistoryStr));
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		
 		//click on outfit item
 		listItem = (ListView) solo.getView(R.id.garmentlist);
 		assertTrue("Cannot see new created item in outfit history list", listItem.getAdapter().getCount() > 0);
 		solo.clickOnView(getViewAtIndex(listItem, 0, getInstrumentation()));
-		solo.sleep(1000);
+		solo.sleep(WAIT_TIME);
 		
 		//check to get in Outfit Preview
 		String outfitPreviewStr = getActivity().getString(R.string.outfit_preview);
 		assertTrue("Cannot enter " + outfitPreviewStr + " view", solo.searchText(outfitPreviewStr));
+		
+		//get in My Laundry Bag
+		solo.clickOnText(outfitPreviewStr);
+		String myLaundryBagStr = getActivity().getString(R.string.mylaundrybag);
+		solo.clickOnText(myLaundryBagStr);
+		assertTrue("Cannot enter " + myLaundryBagStr + " view", solo.searchText(myLaundryBagStr));
+		solo.sleep(WAIT_TIME);
 	}
 	
 	public void testLogin() throws Exception {
